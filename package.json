@@ -4,8 +4,8 @@
   "description": "",
   "main": "Login.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js",
+    "test": "cross-env DB_ENV=testing jest --watch",
+    "server": "cross-env DB_ENV=development nodemon index.js",
     "start": "node index.js"
   },
   "repository": {
@@ -29,6 +29,10 @@
     "pg": "^7.12.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "cross-env": "^6.0.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2",
+    "sqlite3": "^4.1.0"
   }
 }
