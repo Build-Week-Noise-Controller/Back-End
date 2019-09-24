@@ -8,6 +8,9 @@ const auth_middleware = require('./auth_middleware');
 
 
 router.post('/register', (req, res) => {
+    if(req.body.username==undefined || req.body.password==undefined) {
+        res.status(400).json({message: "Username and password required."})
+    }
     hash = bcrypt.hashSync(req.body.password, 8);
     user = {...req.body, password: hash};
     db.add(user)
@@ -16,19 +19,23 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    db.findByUsername(req.body.username)
-    .then(user => {
-        if (user && bcrypt.compareSync(req.body.password,user.password)) {
-            const token = generateToken(user);
-            res.status(200).json({token});
-        } else {
-            res.status(401).json({message: "You shall not pass!"});
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err)
-    });
+    if(req.body.username==undefined || req.body.password==undefined) {
+        res.status(400).json({message: "Username and password required."})
+    } else {
+        db.findByUsername(req.body.username)
+        .then(user => {
+            if (user && bcrypt.compareSync(req.body.password,user.password)) {
+                const token = generateToken(user);
+                res.status(200).json({token});
+            } else {
+                res.status(401).json({message: "You shall not pass!"});
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err)
+        });
+    }
 })
 
 router.put('/', auth_middleware, (req,res) => {
@@ -46,12 +53,13 @@ router.put('/', auth_middleware, (req,res) => {
         .catch (err => {console.log(err); res.status(500).json({message:"Password update failed"})});
     }
 })
-router.get('/users', auth_middleware, (req, res) => {
-    console.log(req.user);
-    db.find()
-    .then(users => res.status(200).json(users))
-    .catch(err => res.status(500).json(err));
-})
+
+// router.get('/users', auth_middleware, (req, res) => {
+//     console.log(req.user);
+//     db.find()
+//     .then(users => res.status(200).json(users))
+//     .catch(err => res.status(500).json(err));
+// })
 
 function generateToken(user) {
     const payload = {

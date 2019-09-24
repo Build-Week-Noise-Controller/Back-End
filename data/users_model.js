@@ -21,4 +21,8 @@ function update(user) {
  return db('users').where('id', '=', user.id).update(user);
 }
 
-module.exports = {find, findById, findByUsername, add, update};
+function deleteUser(username) {
+    return db('users').where({username}).del();
+}
+
+module.exports = {find, findById, findByUsername, add, update, deleteUser};
