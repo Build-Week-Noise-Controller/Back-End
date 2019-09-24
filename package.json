@@ -26,7 +26,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.4",
     "node-pre-gyp": "^0.13.0",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "node":"^12.10.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
