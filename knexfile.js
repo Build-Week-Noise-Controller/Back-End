@@ -10,9 +10,8 @@ module.exports = {
       seeds: { directory: './data/seeds' },
     },
     production: {
-      client: 'sqlite3',
-      connection: { filename: './data/noiseControl.db3' },
-      useNullAsDefault: true,
+      client: 'pg',
+      connection: process.env.DATABASE_URL,
       migrations: {
         directory: './data/migrations',
         tableName: 'dbmigrations',
