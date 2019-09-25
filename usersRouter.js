@@ -35,5 +35,10 @@ router.put ('/', auth_middleware, (req, res) => {
     }
 })
 
+router.get('/:id', auth_middleware, (req, res) => {
+    db.findById(req.params.id)
+    .then(user => res.status(200).json(user))
+    .catch(err => {console.log(err); return res.status(500).json({message: "Error retrieving user."})});
+})
 
 module.exports = router
