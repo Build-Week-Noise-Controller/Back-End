@@ -11,11 +11,14 @@ router.post('/register', (req, res) => {
     if(req.body.username==undefined || req.body.password==undefined) {
         res.status(400).json({message: "Username and password required."})
     }
-    hash = bcrypt.hashSync(req.body.password, 8);
+    hash = bcrypt.hashSync(req.body.password, 10);
     user = {...req.body, password: hash};
     db.add(user)
     .then(user => res.status(200).json(user))
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json(err);
+    });
 });
 
 router.post('/login', (req, res) => {
