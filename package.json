@@ -1,0 +1,38 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Login.js",
+  "scripts": {
+    "test": "cross-env DB_ENV=testing jest --watch",
+    "server": "cross-env DB_ENV=development nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Week-Noise-Controller/Back-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Week-Noise-Controller/Back-End/issues"
+  },
+  "homepage": "https://github.com/Build-Week-Noise-Controller/Back-End#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.4",
+    "node": "^12.10.0",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "sqlite3": "^4.1.0",
+    "supertest": "^4.0.2"
+  }
+}
