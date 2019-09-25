@@ -13,7 +13,7 @@ function findByUsername(username) {
 }
 
 function add(user) {
-    return db('users').insert(user)
+    return db('users').insert(user, 'id')
     .then(ids => findById(ids[0]));
 }
 
