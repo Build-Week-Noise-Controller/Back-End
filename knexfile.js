@@ -1,8 +1,7 @@
 module.exports = {
     development: {
-      client: 'sqlite3',
-      connection: { filename: './data/noiseControl.db3' },
-      useNullAsDefault: true,
+      client: 'pg',
+      connection: { user: 'noisecontroller', database: 'noisecontroller', password: 'noisecontroller' },
       migrations: {
         directory: './data/migrations',
         tableName: 'dbmigrations',
@@ -19,9 +18,8 @@ module.exports = {
       seeds: { directory: './data/seeds' },
     },
     testing: {
-      client: 'sqlite3',
-      connection: { filename: './data/test.db3' },
-      useNullAsDefault: true,
+      client: 'pg',
+      connection: { user: 'noisecontroller', database: 'noisecontroller_testing', password: 'noisecontroller' },
       migrations: {
         directory: './data/migrations',
         tableName: 'dbmigrations',

@@ -6,21 +6,23 @@ const db = require('./data/users_model');
 const router = express.Router();
 const auth_middleware = require('./auth_middleware');
 
-
+// Register a new user and class, returns new class_id
 router.post('/register', (req, res) => {
-    if(req.body.username==undefined || req.body.password==undefined) {
-        res.status(400).json({message: "Username and password required."})
+    if(req.body.username==undefined || req.body.password==undefined || req.body.classname==undefined) {
+        res.status(400).json({message: "Username, password, and classname required."})
+    } else {
+        hash = bcrypt.hashSync(req.body.password, 10);
+        user = {username:req.body.username, password: hash};
+        db.add(user,req.body.classname)
+        .then(user => res.status(200).json(user))
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json(err);
+        });
     }
-    hash = bcrypt.hashSync(req.body.password, 10);
-    user = {...req.body, password: hash};
-    db.add(user)
-    .then(user => res.status(200).json(user))
-    .catch(err => {
-        console.log(err);
-        return res.status(500).json(err);
-    });
 });
 
+// Login to a user, returns token
 router.post('/login', (req, res) => {
     if(req.body.username==undefined || req.body.password==undefined) {
         res.status(400).json({message: "Username and password required."})
@@ -41,6 +43,7 @@ router.post('/login', (req, res) => {
     }
 })
 
+// Updates user's password
 router.put('/', auth_middleware, (req,res) => {
     if(req.body.password == undefined){
         res.status(400).json({message:"Password required."});
