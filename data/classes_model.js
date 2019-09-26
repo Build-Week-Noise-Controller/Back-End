@@ -33,7 +33,7 @@ function addScore(id, score) {
         if(scores.length>=1) {
             prev_score = scores[0];
             if (score > prev_score.score) {
-                return db('scores').update({id: prev_score.id, score: score}, 'score');
+                return db('scores').where({id: prev_score.id}).update({score: score}, 'score');
             } else {
                 return db('scores').select('id').where({id:prev_score.id});
             }
